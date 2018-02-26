@@ -6,4 +6,4 @@ http-server
 
 '''
 
-And navigate to localhost:8080 to view application running.
+And navigate to localhost:8080/src/ to view application running.
