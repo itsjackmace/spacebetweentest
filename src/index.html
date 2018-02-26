@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Space Between Flickr Test</title>
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="../src/css/style.css" />
+<link rel="canonical" href="http://www.example.com" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="bundle.js"></script>
+</head>
+<body>
+
+<div id="content" class="container"></div>
+
+<script>
+(function() {
+  var flickrURL = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+  $.getJSON( flickrURL, {
+    tags: "space",
+    tagmode: "all",
+    format: "json"
+  })
+    .done(function( data ) {
+      $.each( data.items, function( i, item ) {
+      var publishDateString = new Date(item.published);
+      var publishDate = publishDateString.getUTCDate();
+      var month = new Array(12);
+          month[0] = "Jan";
+          month[1] = "Feb";
+          month[2] = "Mar";
+          month[3] = "Apr";
+          month[4] = "May";
+          month[5] = "Jun";
+          month[6] = "Jul";
+          month[7] = "Aug";
+          month[8] = "Sep";
+          month[9] = "Oct";
+          month[10] = "Nov";
+          month[11] = "Dec";
+      var publishMonth = month[publishDateString.getUTCMonth()];
+      var publishYear = publishDateString.getUTCFullYear();
+
+      function addZero(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+
+      var publishHour = addZero(publishDateString.getUTCHours());
+      var publishMinute = addZero(publishDateString.getUTCMinutes());
+
+
+      var html = '<div class="row">';
+          html += '<div class="col-3 image-wrapper" style="background-image: url(' + item.media.m + ')">';
+          // html +=   '<img id="image" src="' + item.media.m + '" alt="#" />';
+          html += '</div>';
+          html += '<div class="col-9 text-wrapper">';
+          html +=   '<h3>' + item.title + '</h3>';
+          html +=   '<p>Published on ' + publishDate + ' ' + publishMonth + ' ' + publishYear + ' at ' + publishHour + ':' + publishMinute + '</p>';
+          html +=   '<a href="http://www.flickr.com/' + item.author_id + '">Photo Author</a>';
+          html +=   '<a href="' + item.link + '">View on Flickr</a>';
+          html +=   '<g:plusone data-href="' + item.link + '"></g:plusone>'
+          html += '</div>';
+          html += '</div>'
+        $( "#content" ).append(html);
+        if ( i === 6 ) {
+          return false;
+        }
+      });
+    });
+})();
+
+</script>
+
+</body>
+</html>

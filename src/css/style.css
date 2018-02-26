@@ -1,0 +1,26 @@
+.container, .image-wrapper, .text-wrapper {
+  border: 2px solid #009;
+}
+
+.image-wrapper {
+  padding: 0;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+.image-wrapper img {
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%)translateY(-50%);
+  max-height: 196px;
+  max-width: calc(100% - 4px);
+}
+
+.text-wrapper a {
+  margin-right: 10px;
+}
